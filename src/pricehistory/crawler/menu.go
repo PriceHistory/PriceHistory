@@ -5,7 +5,7 @@ import (
 	"log"
 	"fmt"
 	"encoding/json"
-	"github.com/vgotsuliak/pricehistory/pricehistory/database"
+	"pricehistory/database"
 )
 
 type Menu map[string]MenuItem

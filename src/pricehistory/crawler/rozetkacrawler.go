@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
 	"strconv"
-	"github.com/vgotsuliak/pricehistory/pricehistory/database"
-	"github.com/vgotsuliak/pricehistory/pricehistory/util"
+	"pricehistory/database"
+	"pricehistory/util"
 	"strings"
 	"log"
 )

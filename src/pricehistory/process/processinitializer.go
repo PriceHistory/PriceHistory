@@ -1,6 +1,6 @@
 package process
 import (
-	"github.com/vgotsuliak/pricehistory/pricehistory/database"
+	"pricehistory/database"
 	"log"
 	"strconv"
 )

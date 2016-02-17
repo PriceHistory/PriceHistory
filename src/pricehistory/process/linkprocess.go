@@ -1,8 +1,8 @@
 package process
 import (
-	"github.com/vgotsuliak/pricehistory/pricehistory/database"
+	"pricehistory/database"
 	"log"
-	"github.com/vgotsuliak/pricehistory/pricehistory/crawler"
+	"pricehistory/crawler"
 )
 
 func Process() {
