@@ -1,6 +1,6 @@
 package main
 import (
-	"github.com/vgotsuliak/pricehistory/pricehistory/crawler"
+	"pricehistory/crawler"
 )
 
 func main() {
