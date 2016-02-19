@@ -1,20 +1,21 @@
 package process
+
 import (
-	"pricehistory/database"
 	"log"
 	"pricehistory/crawler"
+	"pricehistory/database"
 )
 
 func Process() {
 	log.Println("Start processing")
-	defer func () {
+	defer func() {
 		if r := recover(); r != nil {
 			log.Println("Recovered in f", r)
 		}
 	}()
 	for {
 		processID, link := database.GetUnprocessedLink()
-		if (processID == 0) {
+		if processID == 0 {
 			log.Println("Finished processing. No more links")
 			break
 		}

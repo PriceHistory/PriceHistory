@@ -1,7 +1,8 @@
 package process
+
 import (
-	"pricehistory/database"
 	"log"
+	"pricehistory/database"
 	"strconv"
 )
 
@@ -14,13 +15,13 @@ func InitLinkProcesses() {
 
 func clearOldProcesses() {
 	log.Println("Clearing old link processes")
-	database.ClearLinkProcesses();
+	database.ClearLinkProcesses()
 	log.Println("Finished clearing")
 }
 
 func initNewProcesses() {
 	links := database.GetLinks()
-	for _,link := range links {
+	for _, link := range links {
 		database.AddLinkProcess(link.LinkID, unprocessedStatus)
 	}
 	log.Println("Finished creating processes. Created " + strconv.Itoa(len(links)) + " new processes.")
