@@ -41,7 +41,7 @@ func ProcessCatalog(catalogFirstPageURL string) {
 	defer func() {
 		if r := recover(); r != nil {
 			log.Println("Recovered nextCatalogPageURL", r)
-			panic(catalogFirstPageURL)
+			log.Println("Cannot find paginator on: %s", catalogFirstPageURL)
 		}
 	}()
 	var document *goquery.Document
