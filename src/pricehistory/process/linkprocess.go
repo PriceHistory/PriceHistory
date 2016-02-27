@@ -4,13 +4,7 @@ import (
 	"log"
 	"pricehistory/crawler"
 	"pricehistory/database"
-)
-
-const (
-	notProcessed = iota
-	inProgress   = iota
-	processed    = iota
-	error        = iota
+	"pricehistory/process/status"
 )
 
 func Process() {
@@ -22,13 +16,13 @@ func Process() {
 	}()
 	for {
 		processID, link := database.GetUnprocessedLink()
-		database.UpdateLinkProcessStatus(processID, inProgress)
+		database.UpdateLinkProcessStatus(processID, status.InProgress)
 		if processID == 0 {
 			log.Println("Finished processing. No more links")
 			break
 		}
 		crawler.ProcessCatalog(link)
-		database.UpdateLinkProcessStatus(processID, 1)
+		database.UpdateLinkProcessStatus(processID, status.Processed)
 	}
 
 }

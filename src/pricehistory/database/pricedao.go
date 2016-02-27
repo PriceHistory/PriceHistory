@@ -5,6 +5,7 @@ import (
 	"fmt"
 	_ "github.com/lib/pq"
 	"log"
+	"pricehistory/process/status"
 )
 
 var db *sql.DB
@@ -95,7 +96,7 @@ func AddLinkProcess(linkID int, status int) {
 func GetUnprocessedLink() (int, string) {
 	var linkProcessID int
 	var linkHref string
-	db.QueryRow("select lp.LinkProcessPK, l.LinkHref from LinkProcess lp INNER JOIN link l ON lp.LinkFK = l.LinkPK WHERE Status = 0 LIMIT 1;").Scan(&linkProcessID, &linkHref)
+	db.QueryRow("select lp.LinkProcessPK, l.LinkHref from LinkProcess lp INNER JOIN link l ON lp.LinkFK = l.LinkPK WHERE Status = $1 LIMIT 1;", status.NotProcessed).Scan(&linkProcessID, &linkHref)
 	return linkProcessID, linkHref
 }
 
