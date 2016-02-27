@@ -6,6 +6,13 @@ import (
 	"pricehistory/database"
 )
 
+const (
+	notProcessed = iota
+	inProgress   = iota
+	processed    = iota
+	error        = iota
+)
+
 func Process() {
 	log.Println("Start processing")
 	defer func() {
@@ -15,6 +22,7 @@ func Process() {
 	}()
 	for {
 		processID, link := database.GetUnprocessedLink()
+		database.UpdateLinkProcessStatus(processID, inProgress)
 		if processID == 0 {
 			log.Println("Finished processing. No more links")
 			break
