@@ -17,12 +17,14 @@ func Process() {
 	for {
 		processID, link := database.GetUnprocessedLink()
 		database.UpdateLinkProcessStatus(processID, status.InProgress)
+		log.Printf("Processing LinkProcess (ID: %d)", processID)
 		if processID == 0 {
-			log.Println("Finished processing. No more links")
+			log.Printf("Finished processing. No more links", processID)
 			break
 		}
 		crawler.ProcessCatalog(link)
 		database.UpdateLinkProcessStatus(processID, status.Processed)
+		log.Printf("Processed  LinkProcess (ID: %d)", processID)
 	}
 
 }
