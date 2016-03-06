@@ -1,7 +1,6 @@
 package crawler
 
 import (
-	"fmt"
 	"github.com/PuerkitoBio/goquery"
 	"log"
 	"pricehistory/database"
@@ -11,7 +10,7 @@ import (
 )
 
 func processCatalogPage(catalogPage *goquery.Document) map[string]string {
-	fmt.Println("Processing page: " + catalogPage.Url.String())
+	log.Println("Processing page: " + catalogPage.Url.String())
 	prices := make(map[string]string)
 	selection := catalogPage.Find(".g-i-tile")
 	nodes := selection.Nodes
@@ -27,10 +26,8 @@ func processCatalogPage(catalogPage *goquery.Document) map[string]string {
 			id := idSelection.Eq(j).Text()
 			prices[id] = priceSelection.Text()
 			price := priceSelection.Text()
-			fmt.Println(price)
 			convertedPrice := util.ConvertPrice(price)
 			title := strings.Trim(titleSelection.Text(), "\n	")
-			fmt.Println(id + ": " + priceSelection.Text() + " (" + title + ")")
 			database.Save(id, title, convertedPrice)
 		}
 	}
@@ -49,24 +46,24 @@ func ProcessCatalog(catalogFirstPageURL string) {
 		var err error
 		document, err = goquery.NewDocument(nextPageURL)
 		if err != nil {
-			fmt.Errorf("Error: " + err.Error())
+			log.Println("Error: " + err.Error())
 			panic(catalogFirstPageURL)
 		}
 		prices := processCatalogPage(document)
-		fmt.Println(prices)
+		log.Println(prices)
 	}
 }
 
 func nextCatalogPageURL(currentCatalogPage *goquery.Document) string {
 	selection := currentCatalogPage.Find(".paginator-catalog-l-i.active")
 	if len(selection.Nodes) == 0 {
-		fmt.Println("Paginator not found")
+		log.Println("Paginator not found")
 		panic("Error while getting nextCatalogPageURL")
 		return ""
 	}
 	currentPageID, exists := selection.Attr("id")
 	if !exists {
-		fmt.Println("Current page id not found")
+		log.Println("Current page id not found")
 		panic("Error while getting nextCatalogPageURL")
 		return ""
 	}

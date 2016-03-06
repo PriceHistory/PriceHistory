@@ -2,7 +2,6 @@ package database
 
 import (
 	"database/sql"
-	"fmt"
 	_ "github.com/lib/pq"
 	"log"
 	"pricehistory/process/status"
@@ -21,11 +20,10 @@ func init() {
 func Save(id string, title string, price int) {
 	insertedProductPK := saveProduct(id, title)
 	if insertedProductPK == 0 {
-		fmt.Println("Failed while saving product")
+		log.Println("Failed while saving product")
 		return
 	}
 	savePrice(insertedProductPK, price, db)
-	fmt.Println("SUCCESS")
 }
 
 func saveProduct(id string, title string) int {
@@ -53,7 +51,7 @@ func SaveLink(href string, text string) {
 	if err != nil {
 		log.Println(err)
 	}
-	fmt.Println("Saved link. href: " + href + " text: " + text)
+	log.Println("Saved link. href: " + href + " text: " + text)
 }
 
 type Link struct {
