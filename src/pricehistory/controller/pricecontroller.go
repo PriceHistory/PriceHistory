@@ -1,0 +1,18 @@
+package controller
+
+import (
+	"cdp/cdp-bra/vendor/src/github.com/ungerik/go-dry"
+	"encoding/json"
+	"net/http"
+	"pricehistory/database"
+)
+
+func GetProductWithPrices(w http.ResponseWriter, r *http.Request) {
+	productOuterID := r.URL.Query().Get("productid")
+	product := database.GetProductWithPrices(productOuterID)
+	jsonResponse, err := json.Marshal(product)
+	dry.PanicIfErr(err)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(jsonResponse)
+}

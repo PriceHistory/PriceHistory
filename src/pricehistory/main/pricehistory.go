@@ -1,8 +1,8 @@
 package main
 
 import (
-	"pricehistory/database"
-	"fmt"
+	"net/http"
+	"pricehistory/controller"
 )
 
 func main() {
@@ -20,17 +20,20 @@ func main() {
 //		process.InitLinkProcesses()
 //		process.Process()
 //	crawler.ProcessCatalog("http://rozetka.com.ua/4625469/c4625469/tip-76329=347907/")
+//
+//	product := database.GetProductWithPrices("5942505")
+//	fmt.Println(product.ProductID)
+//	fmt.Println(product.ProductName)
+//
+//	for _, price := range product.ProductPrices {
+//
+//		fmt.Print(price.Date)
+//		fmt.Print(" - ")
+//		fmt.Println(price.Price)
+//
+//	}
 
-	product := database.GetProductWithPrices("5942505")
-	fmt.Println(product.ProductID)
-	fmt.Println(product.ProductName)
-
-	for _, price := range product.ProductPrices {
-
-		fmt.Print(price.Date)
-		fmt.Print(" - ")
-		fmt.Println(price.Price)
-
-	}
+	http.HandleFunc("/prices", controller.GetProductWithPrices)
+	http.ListenAndServe(":8080", nil)
 
 }
