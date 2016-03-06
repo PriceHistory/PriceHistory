@@ -5,6 +5,9 @@ import (
 	_ "github.com/lib/pq"
 	"log"
 	"pricehistory/process/status"
+	"pricehistory/entity"
+	"cdp/cdp-bra/vendor/src/github.com/ungerik/go-dry"
+	"time"
 )
 
 var db *sql.DB
@@ -100,4 +103,24 @@ func GetUnprocessedLink() (int, string) {
 
 func UpdateLinkProcessStatus(linkProcessID int, status int) {
 	db.Exec("UPDATE LinkProcess SET Status = $1 WHERE LinkProcessPK = $2", status, linkProcessID)
+}
+
+func GetProductWithPrices(productOuterID string) entity.Product {
+	var productID int
+	var productName string
+	var price int
+	var priceDate time.Time
+	rows, err := db.Query("select pr.productpk, pr.producttitle, p.price, p.pricedate from price p join product pr on p.productfk = pr.productpk where productouterid = $1", productOuterID)
+	dry.PanicIfErr(err)
+	var product entity.Product
+	var productPrices []entity.ProductPrice
+	for rows.Next() {
+		rows.Scan(&productID, &productName, &price, &priceDate)
+		product.ProductID = productID
+		product.ProductName = productName
+		productPrice := entity.ProductPrice{price, priceDate}
+		productPrices = append(productPrices, productPrice)
+	}
+	product.ProductPrices = productPrices
+	return product
 }

@@ -1,7 +1,8 @@
 package main
 
 import (
-	"pricehistory/process"
+	"pricehistory/database"
+	"fmt"
 )
 
 func main() {
@@ -16,7 +17,20 @@ func main() {
 //		}
 	//	processID, linkHref := database.GetUnprocessedLink()
 	//	fmt.Println(strconv.Itoa(processID) + " : " + linkHref)
-		process.InitLinkProcesses()
-		process.Process()
+//		process.InitLinkProcesses()
+//		process.Process()
 //	crawler.ProcessCatalog("http://rozetka.com.ua/4625469/c4625469/tip-76329=347907/")
+
+	product := database.GetProductWithPrices("5942505")
+	fmt.Println(product.ProductID)
+	fmt.Println(product.ProductName)
+
+	for _, price := range product.ProductPrices {
+
+		fmt.Print(price.Date)
+		fmt.Print(" - ")
+		fmt.Println(price.Price)
+
+	}
+
 }
