@@ -16,3 +16,8 @@ func GetProductWithPrices(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write(jsonResponse)
 }
+
+func Run() {
+	http.HandleFunc("/prices", GetProductWithPrices)
+	http.ListenAndServe(":8080", nil)
+}

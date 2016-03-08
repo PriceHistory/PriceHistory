@@ -1,7 +1,6 @@
 package main
 
 import (
-	"net/http"
 	"pricehistory/controller"
 )
 
@@ -33,7 +32,6 @@ func main() {
 //
 //	}
 
-	http.HandleFunc("/prices", controller.GetProductWithPrices)
-	http.ListenAndServe(":8080", nil)
+	controller.Run()
 
 }
