@@ -12,7 +12,6 @@ type ProductPrice struct {
 	Date time.Time
 }
 
-//Entity for menu link
 type Link struct {
 	LinkID   int
 	LinkHref string
