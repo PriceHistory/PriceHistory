@@ -12,4 +12,9 @@ type ProductPrice struct {
 	Date time.Time
 }
 
+type Link struct {
+	LinkID   int
+	LinkHref string
+	LinkText string
+}
 

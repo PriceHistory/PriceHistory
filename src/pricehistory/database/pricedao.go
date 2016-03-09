@@ -57,13 +57,7 @@ func SaveLink(href string, text string) {
 	log.Println("Saved link. href: " + href + " text: " + text)
 }
 
-type Link struct {
-	LinkID   int
-	LinkHref string
-	LinkText string
-}
-
-func GetLinks() []Link {
+func GetLinks() []entity.Link {
 	var linkPK int
 	var linkHref string
 	var linkText string
@@ -71,10 +65,10 @@ func GetLinks() []Link {
 	if err != nil {
 		log.Fatal(err)
 	}
-	var links []Link
+	var links []entity.Link
 	for rows.Next() {
 		rows.Scan(&linkPK, &linkHref, &linkText)
-		currentLink := Link{linkPK, linkHref, linkText}
+		currentLink := entity.Link{linkPK, linkHref, linkText}
 		links = append(links, currentLink)
 	}
 	return links
