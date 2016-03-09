@@ -20,6 +20,12 @@
 			"branch": "master"
 		},
 		{
+			"importpath": "github.com/ungerik/go-dry",
+			"repository": "https://github.com/ungerik/go-dry",
+			"revision": "3b834c321329e742c85f130f8e9b5beef3f5b7f1",
+			"branch": "master"
+		},
+		{
 			"importpath": "golang.org/x/net/html",
 			"repository": "https://go.googlesource.com/net",
 			"revision": "08f168e593b5aab61849054b77981de812666697",

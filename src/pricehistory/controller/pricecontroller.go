@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"cdp/cdp-bra/vendor/src/github.com/ungerik/go-dry"
+	"github.com/ungerik/go-dry"
 	"encoding/json"
 	"net/http"
 	"pricehistory/database"

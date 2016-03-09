@@ -6,7 +6,7 @@ import (
 	"log"
 	"pricehistory/process/status"
 	"pricehistory/entity"
-	"cdp/cdp-bra/vendor/src/github.com/ungerik/go-dry"
+	"github.com/ungerik/go-dry"
 	"time"
 )
 
