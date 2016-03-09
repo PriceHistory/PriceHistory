@@ -8,7 +8,7 @@ import (
 )
 
 func GetProductWithPrices(w http.ResponseWriter, r *http.Request) {
-	productOuterID := r.URL.Query().Get("productid")
+	productOuterID := r.URL.Query().Get("id")
 	product := database.GetProductWithPrices(productOuterID)
 	jsonResponse, err := json.Marshal(product)
 	dry.PanicIfErr(err)
