@@ -4,12 +4,12 @@ import (
 	"github.com/ungerik/go-dry"
 	"encoding/json"
 	"net/http"
-	"pricehistory/database"
+	"pricehistory/service"
 )
 
 func GetProductWithPrices(w http.ResponseWriter, r *http.Request) {
 	productOuterID := r.URL.Query().Get("id")
-	product := database.GetProductWithPrices(productOuterID)
+	product := service.GetProduct(productOuterID)
 	jsonResponse, err := json.Marshal(product)
 	dry.PanicIfErr(err)
 	w.Header().Set("Content-Type", "application/json")
