@@ -2,7 +2,6 @@ package crawler
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/PuerkitoBio/goquery"
 	"log"
 	"pricehistory/database"
@@ -42,24 +41,20 @@ func getCatalogs(initialURL string) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(document.Text())
 	menu := new(Menu)
 	json.Unmarshal([]byte(document.Text()), &menu)
 	for _, v := range *menu {
 		for _, c := range v.Children {
 			if len(Child(c).Columns) == 0 {
-				fmt.Println(c)
+				log.Println(c)
 				database.SaveLink(c.Href, c.Title)
 			} else {
 				for _, col := range c.Columns {
 					for _, ch := range col.Children {
-						fmt.Println(" ---------------- " + ch.Href)
 						database.SaveLink(ch.Href, ch.Title)
 					}
 				}
 			}
 		}
-		//		fmt.Println(v)
 	}
-	fmt.Println(menu)
 }
