@@ -8,13 +8,21 @@ import (
 	"pricehistory/entity"
 	"github.com/ungerik/go-dry"
 	"time"
+	"os"
+	"fmt"
 )
 
 var db *sql.DB
 
 func init() {
 	var err error
-	db, err = sql.Open("postgres", "user=postgres password=pass1234 dbname=postgres sslmode=disable host=172.17.0.2")
+	user := os.Getenv("POSTGRES_ENV_POSTGRES_USER")
+	password := os.Getenv("POSTGRES_ENV_POSTGRES_PASSWORD")
+	port := os.Getenv("POSTGRES_PORT_5432_TCP_PORT")
+	host := os.Getenv("POSTGRES_PORT_5432_TCP_ADDR")
+	dbName := os.Getenv("POSTGRES_ENV_POSTGRES_DB")
+	dataSourceString := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable host=%s port=%s", user, password, dbName, host, port)
+	db, err = sql.Open("postgres", dataSourceString)
 	if err != nil {
 		log.Fatal(err)
 	}
