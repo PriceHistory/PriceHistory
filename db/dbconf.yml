@@ -4,4 +4,4 @@ test:
 
 development:
   driver: postgres
-  open: user=postgres dbname=postgres sslmode=disable host=172.17.0.3 password=pass1234
+  open: user=postgres dbname=postgres sslmode=disable

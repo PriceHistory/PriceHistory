@@ -1,6 +1,10 @@
+
+-- +goose Up
+-- SQL in section 'Up' is executed when this migration is applied
 CREATE TABLE product (
 	ProductPK SERIAL PRIMARY KEY,
-	ProductOuterID VARCHAR(50) NOT NULL UNIQUE
+	ProductOuterID VARCHAR(50) NOT NULL UNIQUE,
+	ProductTitle VARCHAR(255)
 );
 
 CREATE TABLE price (
@@ -14,9 +18,10 @@ CREATE TABLE link (
 	LinkPK serial PRIMARY KEY,
 	LinkHref VARCHAR(255) NOT NULL UNIQUE,
 	LinkText VARCHAR(255) NOT NULL
-)
+);
 
-ALTER TABLE product
-    ADD COLUMN ProductTitle VARCHAR(255);
-
-select * from price where ProductFK = 6153;
+-- +goose Down
+-- SQL section 'Down' is executed when this migration is rolled back
+DROP TABLE link;
+DROP TABLE price;
+DROP TABLE product;
