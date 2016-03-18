@@ -1,7 +1,3 @@
-test:
-  driver: postgres
-  open: user=postgres dbname=postgres sslmode=disable
-
 development:
   driver: postgres
-  open: user=postgres dbname=postgres sslmode=disable
+  open: user=postgres dbname=postgres sslmode=disable host=$POSTGRES_PORT_5432_TCP_ADDR password=$POSTGRES_ENV_POSTGRES_PASSWORD
