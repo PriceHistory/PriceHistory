@@ -6,7 +6,6 @@ import (
 
 func main() {
 	//	crawler.Crawl()
-	//	crawler.GetMenuLinks("http://rozetka.com.ua/fatmenu/action=getMenu;ssl=0/")
 //		links := database.GetLinks()
 //		fmt.Println(links)
 //		fmt.Println(len(links))
