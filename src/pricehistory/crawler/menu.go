@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"github.com/PuerkitoBio/goquery"
 	"log"
-``)
+)
 
 type Menu map[string]MenuItem
 
