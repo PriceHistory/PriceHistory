@@ -20,8 +20,15 @@ CREATE TABLE link (
 	LinkText VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE linkprocess (
+	LinkProcessPK SERIAL PRIMARY KEY,
+	LinkFK INT NOT NULL REFERENCES link(LinkPK),
+	Status INT
+);
+
 -- +goose Down
 -- SQL section 'Down' is executed when this migration is rolled back
 DROP TABLE link;
 DROP TABLE price;
 DROP TABLE product;
+DROP TABLE linkprocess;
