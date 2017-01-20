@@ -3,36 +3,11 @@ package crawler
 import (
 	"github.com/PuerkitoBio/goquery"
 	"log"
-	"pricehistory/database"
+//	"pricehistory/database"
 	"pricehistory/util"
 	"strconv"
 	"strings"
 )
-
-func processCatalogPage(catalogPage *goquery.Document) map[string]string {
-	log.Println("Processing page: " + catalogPage.Url.String())
-	prices := make(map[string]string)
-	selection := catalogPage.Find(".g-i-tile")
-	nodes := selection.Nodes
-	for item := range nodes {
-		productDocument := goquery.NewDocumentFromNode(nodes[item])
-		priceSelection := productDocument.Find(".g-price-uah")
-		if len(priceSelection.Nodes) == 0 {
-			continue
-		}
-		titleSelection := productDocument.Find(".g-i-tile-i-title")
-		idSelection := productDocument.Find(".g-id")
-		for j := range idSelection.Nodes {
-			id := idSelection.Eq(j).Text()
-			prices[id] = priceSelection.Text()
-			price := priceSelection.Text()
-			convertedPrice := util.ConvertPrice(price)
-			title := strings.Trim(titleSelection.Text(), "\n	")
-			database.Save(id, title, convertedPrice)
-		}
-	}
-	return prices
-}
 
 func ProcessCatalog(catalogFirstPageURL string) {
 	defer func() {
@@ -52,6 +27,31 @@ func ProcessCatalog(catalogFirstPageURL string) {
 		prices := processCatalogPage(document)
 		log.Println(prices)
 	}
+}
+
+func processCatalogPage(catalogPage *goquery.Document) map[string]string {
+	log.Println("Processing page: " + catalogPage.Url.String())
+	prices := make(map[string]string)
+	selection := catalogPage.Find(".g-i-tile")
+	nodes := selection.Nodes
+	for item := range nodes {
+		productDocument := goquery.NewDocumentFromNode(nodes[item])
+		priceSelection := productDocument.Find(".g-price-uah")
+		if len(priceSelection.Nodes) == 0 {
+			continue
+		}
+		titleSelection := productDocument.Find(".g-i-tile-i-title")
+		idSelection := productDocument.Find(".g-id")
+		for j := range idSelection.Nodes {
+			id := idSelection.Eq(j).Text()
+			prices[id] = priceSelection.Text()
+			price := priceSelection.Text()
+			/*convertedPrice := */util.ConvertPrice(price)
+			/*title := */strings.Trim(titleSelection.Text(), "\n	")
+//			database.Save(id, title, convertedPrice)
+		}
+	}
+	return prices
 }
 
 func nextCatalogPageURL(currentCatalogPage *goquery.Document) string {
